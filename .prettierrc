@@ -1,0 +1,22 @@
+{
+  "printWidth": 80,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "proseWrap": "never",
+  "overrides": [{ "files": ".prettierrc", "options": { "parser": "json" } }],
+  "plugins": ["prettier-plugin-packagejson"],
+  "importOrder": [
+    "^react",
+    "",
+    "^(?!(react|@core/))\\w+",
+    "^@ant-design/",
+    "^@umijs/",
+    "^@cubejs-client/",
+    "",
+    "^@/(services|components/models/contants)/",
+    "^.",
+    ""
+  ],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true
+}
