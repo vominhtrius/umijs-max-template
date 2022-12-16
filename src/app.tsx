@@ -23,14 +23,15 @@ export async function getInitialState(): Promise<InitStateProps> {
       return await getCurrentUserDetail({ skipErrorHandler: true });
     } catch (error) {
       console.log('fetch current user failed', error);
-      removeAuthToken();
-      history.push(LOGIN_URI);
     }
   };
 
   const userDetail = await fetchCurrentUserDetail();
 
-  if (userDetail && history.location.pathname === LOGIN_URI) {
+  if (userDetail === undefined) {
+    removeAuthToken();
+    history.push(LOGIN_URI);
+  } else if (history.location.pathname === LOGIN_URI) {
     const query = parse(history.location.search);
     const { redirect } = query as { redirect: string };
     history.push(redirect || '/');
