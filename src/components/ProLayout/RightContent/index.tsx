@@ -1,50 +1,42 @@
 import React from 'react';
 
 import { Avatar, Dropdown, Spin } from 'antd';
-import { InitDataType, RuntimeConfig } from 'umi';
+import { InitDataType, RuntimeConfig, SelectLang } from 'umi';
 import { LogoutOutlined } from '@ant-design/icons';
-import { HeaderProps } from '@ant-design/pro-components';
+import { FormattedMessage } from '@umijs/max';
 
 import { IConfigFromPlugins } from '@@/core/pluginConfig';
-import { FormattedMessage, SelectLang } from '@@/plugin-locale';
 
-export function getRightRenderContent(
-  headerProps: HeaderProps,
-  dom: JSX.Element,
-  opts: {
-    userConfig: IConfigFromPlugins['layout'];
-    runtimeConfig: RuntimeConfig;
-    loading: InitDataType['loading'];
-    initialState: InitDataType['initialState'];
-    setInitialState: InitDataType['setInitialState'];
-  },
-): JSX.Element {
-  if (opts.runtimeConfig.rightRender) {
-    return opts.runtimeConfig.rightRender(
-      opts.initialState,
-      opts.setInitialState,
-      opts.runtimeConfig,
-    );
-  }
+export interface RightContentProps {
+  userConfig: IConfigFromPlugins['layout'];
+  runtimeConfig: RuntimeConfig;
+  loading: InitDataType['loading'];
+  initialState: InitDataType['initialState'];
+  setInitialState: InitDataType['setInitialState'];
+}
 
+const RightContent: React.FC<RightContentProps> = ({
+  runtimeConfig,
+  initialState,
+  loading,
+}) => {
   const avatar = (
     <span className="umi-plugin-layout-action">
       <Avatar
         size="small"
         className="umi-plugin-layout-avatar"
         src={
-          opts.initialState?.user?.avatar ||
+          initialState?.user?.avatar ||
           'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'
         }
         alt="avatar"
       />
       <span className="umi-plugin-layout-name">
-        {opts.initialState?.user?.display_name}
+        {initialState?.user?.display_name}
       </span>
     </span>
   );
-
-  if (opts.loading) {
+  if (loading) {
     return (
       <div className="umi-plugin-layout-right">
         <Spin size="small" style={{ marginLeft: 8, marginRight: 8 }} />
@@ -65,7 +57,7 @@ export function getRightRenderContent(
           </>
         ),
         onClick: () => {
-          opts?.runtimeConfig?.logout?.(opts.initialState);
+          runtimeConfig?.logout?.(initialState);
         },
       },
     ],
@@ -73,7 +65,7 @@ export function getRightRenderContent(
 
   return (
     <div className="umi-plugin-layout-right anticon">
-      {opts.runtimeConfig.logout ? (
+      {runtimeConfig.logout ? (
         <Dropdown
           menu={langMenu}
           overlayClassName="umi-plugin-layout-container"
@@ -86,4 +78,6 @@ export function getRightRenderContent(
       <SelectLang />
     </div>
   );
-}
+};
+
+export default RightContent;

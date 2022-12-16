@@ -7,7 +7,7 @@ import {
   history,
 } from 'umi';
 
-import { getRightRenderContent } from './components/ProLayout/rightRender';
+import RightContent from './components/ProLayout/RightContent';
 import { LOGIN_URI } from './constants';
 import { getAuthToken, removeAuthToken } from './services/auth';
 import { UserDetail, UserInfo, getCurrentUserDetail } from './services/users';
@@ -45,7 +45,7 @@ export async function getInitialState(): Promise<InitStateProps> {
 export const layout: RunTimeLayoutConfig = (initData) => {
   return {
     logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
-    rightContentRender: getRightRenderContent,
+    rightContentRender: (headerProps, dom, opts) => <RightContent {...opts} />,
     // childrenRender: (children) => {
     //   return <CubeProvider cubejsApi={cubejsApi}>{children}</CubeProvider>;
     // },
