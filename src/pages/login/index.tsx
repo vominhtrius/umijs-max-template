@@ -15,15 +15,15 @@ export default () => {
     try {
       const response = await login(values);
       setAuthToken(response.token);
-
-      console.log('fresh init data');
       await refresh();
       message.success('Đăng nhập thành công!');
       const query = parse(history.location.search);
       const { redirect } = query as { redirect: string };
       history.push(redirect || '/');
+      return true;
     } catch (err) {
       console.log('login error: ', err);
+      return false;
     }
   };
 

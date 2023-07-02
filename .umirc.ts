@@ -19,7 +19,9 @@ export default defineConfig({
   ],
   access: {},
   model: {},
-  initialState: {},
+  initialState: {
+    loading: '@/loading.tsx',
+  },
   request: {},
   locale: {
     default: 'vi-VN',
