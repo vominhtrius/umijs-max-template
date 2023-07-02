@@ -42,17 +42,17 @@ export default defineConfig({
       redirect: '/home',
     },
     {
-      name: '首页',
+      name: 'home',
       path: '/home',
       component: './Home',
     },
     {
-      name: '权限演示',
+      name: 'access',
       path: '/access',
       component: './Access',
     },
     {
-      name: ' CRUD 示例',
+      name: 'table',
       path: '/table',
       component: './Table',
     },
