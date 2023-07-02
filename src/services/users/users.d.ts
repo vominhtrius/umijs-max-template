@@ -18,6 +18,4 @@ export type UserInfo = {
   permissions?: string[];
 };
 
-export type UserDetail = {
-  user: UserInfo;
-};
+export type UserDetail = UserInfo;

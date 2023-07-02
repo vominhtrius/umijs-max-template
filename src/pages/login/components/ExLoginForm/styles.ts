@@ -1,5 +1,5 @@
+import { GenerateStyle, ProAliasToken } from '@ant-design/pro-components';
 import { useStyle as useAntdStyle } from '@ant-design/pro-provider';
-import type { GenerateStyle, ProAliasToken } from '@ant-design/pro-utils';
 
 export interface LoginFormToken extends ProAliasToken {
   componentCls: string;

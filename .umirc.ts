@@ -9,6 +9,8 @@ export default defineConfig({
         borderRadius: 6,
       },
     },
+    configProvider: {},
+    appConfig: {},
   },
   styles: [
     `body {
@@ -32,6 +34,7 @@ export default defineConfig({
     title: '@umijs/max',
     locale: true,
   },
+  helmet: true,
   routes: [
     {
       path: '/login',

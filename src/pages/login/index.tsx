@@ -1,25 +1,43 @@
-import { message } from 'antd';
-import { parse } from 'querystring';
+import { App } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { ProFormText } from '@ant-design/pro-components';
-import { FormattedMessage, history, useIntl, useModel } from '@umijs/max';
+import { FormattedMessage, useIntl, useModel, useNavigate } from '@umijs/max';
 
 import { login, setAuthToken } from '@/services/auth';
 import { LoginBody } from '@/services/auth/auth';
 import { ExLoginForm } from './components/ExLoginForm/ExLoginForm';
+import { getPageQuery } from '@/utils';
 
 export default () => {
   const intl = useIntl();
   const { refresh } = useModel('@@initialState');
+  const navigate = useNavigate();
+  const { message } = App.useApp();
+
   const handleLogin = async (values: LoginBody) => {
     try {
       const response = await login(values);
       setAuthToken(response.token);
       await refresh();
       message.success('Đăng nhập thành công!');
-      const query = parse(history.location.search);
-      const { redirect } = query as { redirect: string };
-      history.push(redirect || '/');
+      const urlParams = new URL(window.location.href);
+      const params = getPageQuery();
+      let { redirect } = params as { redirect: string };
+
+      if (redirect) {
+        const redirectUrlParams = new URL(redirect);
+        if (redirectUrlParams.origin === urlParams.origin) {
+          redirect = redirect.substring(urlParams.origin.length);
+          if (redirect.match(/^\/.*#/)) {
+            redirect = redirect.substring(redirect.indexOf('#') + 1);
+          }
+        } else {
+          window.location.href = '/';
+          return;
+        }
+      }
+
+      navigate(redirect || '/', { replace: true });
       return true;
     } catch (err) {
       console.log('login error: ', err);
@@ -43,7 +61,7 @@ export default () => {
       }}
     >
       <ExLoginForm<LoginBody>
-        logo="https://payment.gaochatviet.vn/logo.svg"
+        logo="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
         title={'Payment Management System'}
         subTitle={'v1.0.0'}
         onFinish={handleLogin}

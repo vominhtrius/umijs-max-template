@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { parse } from 'querystring';
+// import { parse } from 'querystring';
 import {
   AxiosRequestConfig,
   RequestConfig,
@@ -8,12 +8,14 @@ import {
 } from 'umi';
 
 import RightContent from './components/ProLayout/RightContent';
+import WrapperAuth from './components/WrapperAuth';
 import { LOGIN_URI } from './constants';
 import { getAuthToken, removeAuthToken } from './services/auth';
 import { UserDetail, UserInfo, getCurrentUserDetail } from './services/users';
 
 export type InitStateProps = {
   user?: UserInfo;
+  isLoggedIn: boolean;
   fetchCurrentUserDetail: () => Promise<UserDetail | undefined>;
 };
 
@@ -28,17 +30,9 @@ export async function getInitialState(): Promise<InitStateProps> {
 
   const userDetail = await fetchCurrentUserDetail();
 
-  if (userDetail === undefined) {
-    removeAuthToken();
-    history.push(LOGIN_URI);
-  } else if (history.location.pathname === LOGIN_URI) {
-    const query = parse(history.location.search);
-    const { redirect } = query as { redirect: string };
-    history.push(redirect || '/');
-  }
-
   return {
-    user: userDetail?.user,
+    isLoggedIn: !!userDetail,
+    user: userDetail,
     fetchCurrentUserDetail,
   };
 }
@@ -47,9 +41,10 @@ export const layout: RunTimeLayoutConfig = (initData) => {
   return {
     logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
     rightContentRender: (headerProps, dom, opts) => <RightContent {...opts} />,
-    // childrenRender: (children) => {
-    //   return <CubeProvider cubejsApi={cubejsApi}>{children}</CubeProvider>;
-    // },
+    childrenRender: (children) => {
+      // return <CubeProvider cubejsApi={cubejsApi}>{children}</CubeProvider>;
+      return <WrapperAuth>{children}</WrapperAuth>;
+    },
     navTheme: 'light',
     loading: initData.loading,
     layout: 'mix',

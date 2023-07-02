@@ -68,7 +68,7 @@ function ExLoginForm<T = Record<string, any>>(
       ? false
       : ({
           searchConfig: {
-            submitText: intl.getMessage('loginForm.submitText', '登录'),
+            submitText: intl.getMessage('loginForm.submitText', 'Login'),
           },
           ...proFormProps.submitter,
           submitButtonProps: {
@@ -95,7 +95,6 @@ function ExLoginForm<T = Record<string, any>>(
   const getCls = (className: string) =>
     `${baseClassName}-${className} ${hashId}`;
 
-  /** 生成logo 的dom，如果是string 设置为图片 如果是个 dom 就原样保留 */
   const logoDom = useMemo(() => {
     if (!logo) return null;
     if (typeof logo === 'string') {
