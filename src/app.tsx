@@ -12,6 +12,7 @@ import WrapperAuth from './components/WrapperAuth';
 import { LOGIN_URI } from './constants';
 import { getAuthToken, removeAuthToken } from './services/auth';
 import { UserDetail, UserInfo, getCurrentUserDetail } from './services/users';
+import NoAccessible from '@/pages/403';
 
 export type InitStateProps = {
   user?: UserInfo;
@@ -48,6 +49,7 @@ export const layout: RunTimeLayoutConfig = (initData) => {
     navTheme: 'light',
     loading: initData.loading,
     layout: 'mix',
+    unAccessible: <NoAccessible />,
     menu: {
       locale: true,
     },

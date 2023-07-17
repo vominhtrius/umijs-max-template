@@ -61,6 +61,10 @@ export default defineConfig({
       path: '/table',
       component: './Table',
     },
+    {
+      path: '/*',
+      component: './404',
+    },
   ],
   npmClient: 'yarn',
 });
