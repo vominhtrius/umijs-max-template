@@ -14,23 +14,23 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.1.4",
-    "@ant-design/pro-components": "^2.6.5",
-    "@umijs/max": "^4.0.72",
-    "antd": "^5.6.5"
+    "@ant-design/icons": "^5.5.1",
+    "@ant-design/pro-components": "^2.8.2",
+    "@umijs/max": "^4.3.34",
+    "antd": "^5.22.2"
   },
   "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^3.7.1",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@umijs/lint": "^4.0.72",
-    "eslint": "^8.29.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1",
-    "prettier-plugin-organize-imports": "^2",
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@umijs/lint": "^4.3.34",
+    "eslint": "^9.15.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "prettier-plugin-organize-imports": "^4",
     "prettier-plugin-packagejson": "^2",
-    "stylelint": "^14.16.0",
-    "typescript": "^4.1.2"
+    "stylelint": "^16.10.0",
+    "typescript": "^5.7.2"
   }
 }
